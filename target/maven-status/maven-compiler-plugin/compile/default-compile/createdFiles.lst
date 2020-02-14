@@ -1,5 +1,0 @@
-com\erwin\meterapp\persistence\repository\DeviceMeasurementsRepository.class
-com\erwin\meterapp\MeterApp.class
-com\erwin\meterapp\api\Device.class
-com\erwin\meterapp\persistence\model\DeviceMeasurementsModel.class
-com\erwin\meterapp\scheduledTasks\MeterAppSchedule.class

@@ -22,6 +22,14 @@ public class Device {
         log.info("trying to start...");
 
         List<DeviceMeasurementsModel> deviceMeasurements = deviceMeasurementsRepository.findAll();
+
+        // log.info(deviceMeasurements.toString());
+
+        // System.out.println(deviceMeasurements.toString());
         log.info("Done loading");
+
+        for (int i = 0; i < deviceMeasurements.size(); i++) {
+            //log.info(deviceMeasurements.get(i).toString());
+        }
     }
 }
