@@ -7,8 +7,9 @@ import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
-import com.erwin.meterapp.model.DeviceMeasurements;
-import com.erwin.meterapp.service.IDeviceMeasurements;
+import com.erwin.meterapp.persistence.model.DeviceMeasurementsModel;
+import com.erwin.meterapp.persistence.repository.DeviceMeasurementsRepository;
+
 
 @Controller
 public class Device {
@@ -16,23 +17,14 @@ public class Device {
     private static final Logger log = LoggerFactory.getLogger(Device.class);
 
     @Autowired
-    IDeviceMeasurements deviceMeasurementsService;
-
-    /**
-     * Main constructor
-     */
-    public Device() {
-
-    }
+    private DeviceMeasurementsRepository deviceMeasurementsRepository;
 
     public void BatchProcessDeviceMeasurements() {
         log.info("trying to start...");
 
         // Find all measurements
-        List<DeviceMeasurements> deviceMeasurements = (List<DeviceMeasurements>) deviceMeasurementsService.findAll();
-        if (deviceMeasurements == null) {
-            log.error("no data found");
-        }
+        List<DeviceMeasurementsModel> deviceMeasurements = deviceMeasurementsRepository.findAll();
+        //System.out.println(deviceMeasurements.toString());
         log.info("Done loading");
     }
 }
