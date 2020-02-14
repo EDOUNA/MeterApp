@@ -5,6 +5,8 @@ import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Controller;
 
+import com.erwin.meterapp.model.DeviceMeasurements;
+
 @Controller
 public class Device {
 
@@ -14,6 +16,10 @@ public class Device {
      * Main constructor
      */
     public Device() {
-        log.debug("Starting!");
+
+    }
+
+    public void BatchProcessDeviceMeasurements() {
+        log.info("trying to start...");
     }
 }

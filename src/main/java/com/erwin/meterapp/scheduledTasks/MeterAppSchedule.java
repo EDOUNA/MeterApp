@@ -16,7 +16,9 @@ public class MeterAppSchedule {
     @Scheduled(fixedRate = 5000)
     public void reportCurrentLog() {
         log.info("Creating device class instance");
+        
         // Create a new device instance to proper handle the logging
         Device device = new Device();
+        device.BatchProcessDeviceMeasurements();
     }
 }
