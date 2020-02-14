@@ -10,7 +10,6 @@ import java.util.List;
 import com.erwin.meterapp.persistence.model.DeviceMeasurementsModel;
 import com.erwin.meterapp.persistence.repository.DeviceMeasurementsRepository;
 
-
 @Controller
 public class Device {
 
@@ -22,9 +21,7 @@ public class Device {
     public void BatchProcessDeviceMeasurements() {
         log.info("trying to start...");
 
-        // Find all measurements
         List<DeviceMeasurementsModel> deviceMeasurements = deviceMeasurementsRepository.findAll();
-        //System.out.println(deviceMeasurements.toString());
         log.info("Done loading");
     }
 }

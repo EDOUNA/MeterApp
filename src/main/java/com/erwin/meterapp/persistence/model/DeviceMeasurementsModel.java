@@ -10,6 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 @Entity
 @Table(name = "device_measurements_copy")
 public class DeviceMeasurementsModel {
@@ -19,9 +22,11 @@ public class DeviceMeasurementsModel {
     private long id;
 
     @Column(name = "created_at")
+    @CreationTimestamp
     private Timestamp createdAt;
 
     @Column(name = "updated_at")
+    @UpdateTimestamp
     private Timestamp updatedAt;
 
     @Column(name = "device_id")
@@ -30,7 +35,6 @@ public class DeviceMeasurementsModel {
     @Column(name = "tariff_id")
     private int tariffId;
 
-    @Column
     private float amount;
 
     public DeviceMeasurementsModel() {
