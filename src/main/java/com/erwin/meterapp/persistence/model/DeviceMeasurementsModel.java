@@ -35,7 +35,35 @@ public class DeviceMeasurementsModel {
     @Column(name = "tariff_id")
     private int tariffId;
 
+    @Column(name = "migrated")
+    private int migrated;
+
+    @Column(name = "amount")
     private float amount;
+
+    public DeviceMeasurementsModel(long id, Timestamp createdAt, Timestamp updatedAt, int deviceId, int tariffId,
+            int migrated, float amount) {
+        this.id = id;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.deviceId = deviceId;
+        this.tariffId = tariffId;
+        this.migrated = migrated;
+        this.amount = amount;
+    }
+
+    public int getMigrated() {
+        return this.migrated;
+    }
+
+    public void setMigrated(int migrated) {
+        this.migrated = migrated;
+    }
+
+    public DeviceMeasurementsModel migrated(int migrated) {
+        this.migrated = migrated;
+        return this;
+    }
 
     public DeviceMeasurementsModel() {
     }

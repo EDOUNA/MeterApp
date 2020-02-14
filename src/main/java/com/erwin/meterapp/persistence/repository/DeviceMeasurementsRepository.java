@@ -6,5 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface DeviceMeasurementsRepository extends CrudRepository<DeviceMeasurementsModel, Long> {
     List<DeviceMeasurementsModel> findAll();
-    List<DeviceMeasurementsModel> findById(long id);
+    DeviceMeasurementsModel findById(long id);
 }

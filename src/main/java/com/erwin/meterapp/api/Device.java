@@ -19,17 +19,20 @@ public class Device {
     private DeviceMeasurementsRepository deviceMeasurementsRepository;
 
     public void BatchProcessDeviceMeasurements() {
-        log.info("trying to start...");
+        log.info("Starting migration process...");
 
-        List<DeviceMeasurementsModel> deviceMeasurements = deviceMeasurementsRepository.findAll();
+        final List<DeviceMeasurementsModel> deviceMeasurements = deviceMeasurementsRepository.findAll();
 
         // log.info(deviceMeasurements.toString());
 
         // System.out.println(deviceMeasurements.toString());
         log.info("Done loading");
 
-        for (int i = 0; i < deviceMeasurements.size(); i++) {
-            //log.info(deviceMeasurements.get(i).toString());
-        }
+        deviceMeasurements.forEach((d) -> {
+            DeviceMeasurementsModel singleMeasurement = deviceMeasurementsRepository.findById(d.getId());
+            log.info("Updating ID: " + singleMeasurement.getId() + " | Migration status: " + singleMeasurement.getMigrated());
+            singleMeasurement.setMigrated(1);
+            log.info("Done | Migration status: " + singleMeasurement.getMigrated());
+        });
     }
 }
