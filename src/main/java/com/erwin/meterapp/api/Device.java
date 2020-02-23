@@ -4,8 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
-import java.util.List;
+import org.springframework.web.client.RestTemplate;
 
 import com.erwin.meterapp.persistence.model.ConfigurationsModel;
 import com.erwin.meterapp.persistence.model.DeviceMeasurementsModel;
@@ -28,9 +27,10 @@ public class Device {
         log.info("Loading configuration for " + this.ConfigurationString);
         ConfigurationsModel DomoticzProdURL = configurationsRepository.findBySetting(this.ConfigurationString);
         log.info("Done loading configuration settings for " + this.ConfigurationString);
-        System.out.println(DomoticzProdURL.toString());
+        //System.out.println(DomoticzProdURL.toString());
 
-        log.info("Trying to fetch JSON");
-        HttpClient client = httpClient
+        RestTemplate restTemplate = new RestTemplate();
+        String domiticzResult = restTemplate.getForObject(DomoticzProdURL.getParameter(), String.class);
+        //System.out.println(domiticzResult);
     }
 }
