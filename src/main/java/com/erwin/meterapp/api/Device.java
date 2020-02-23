@@ -7,32 +7,30 @@ import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
+import com.erwin.meterapp.persistence.model.ConfigurationsModel;
 import com.erwin.meterapp.persistence.model.DeviceMeasurementsModel;
+import com.erwin.meterapp.persistence.repository.ConfigurationsRepository;
 import com.erwin.meterapp.persistence.repository.DeviceMeasurementsRepository;
 
 @Controller
 public class Device {
 
     private static final Logger log = LoggerFactory.getLogger(Device.class);
+    private final String ConfigurationString = "domoticz_meter_prod_url";
 
     @Autowired
     private DeviceMeasurementsRepository deviceMeasurementsRepository;
 
+    @Autowired
+    private ConfigurationsRepository configurationsRepository;
+
     public void BatchProcessDeviceMeasurements() {
-        log.info("Starting migration process...");
+        log.info("Loading configuration for " + this.ConfigurationString);
+        ConfigurationsModel DomoticzProdURL = configurationsRepository.findBySetting(this.ConfigurationString);
+        log.info("Done loading configuration settings for " + this.ConfigurationString);
+        System.out.println(DomoticzProdURL.toString());
 
-        final List<DeviceMeasurementsModel> deviceMeasurements = deviceMeasurementsRepository.findAll();
-
-        // log.info(deviceMeasurements.toString());
-
-        // System.out.println(deviceMeasurements.toString());
-        log.info("Done loading");
-
-        deviceMeasurements.forEach((d) -> {
-            DeviceMeasurementsModel singleMeasurement = deviceMeasurementsRepository.findById(d.getId());
-            log.info("Updating ID: " + singleMeasurement.getId() + " | Migration status: " + singleMeasurement.getMigrated());
-            singleMeasurement.setMigrated(1);
-            log.info("Done | Migration status: " + singleMeasurement.getMigrated());
-        });
+        log.info("Trying to fetch JSON");
+        HttpClient client = httpClient
     }
 }
