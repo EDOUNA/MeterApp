@@ -1,18 +1,14 @@
 package com.erwin.meterapp.api;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.json.JsonParserFactory;
-import org.springframework.boot.json.JsonParser;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.client.RestTemplate;
-
-import java.util.Map;
-
+import com.erwin.meterapp.dao.domoticz.Main;
 import com.erwin.meterapp.persistence.model.ConfigurationsModel;
 import com.erwin.meterapp.persistence.repository.ConfigurationsRepository;
 import com.erwin.meterapp.persistence.repository.DeviceMeasurementsRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.client.RestTemplate;
 
 @Controller
 public class Device {
@@ -30,20 +26,11 @@ public class Device {
         log.info("Loading configuration for " + this.ConfigurationString);
         ConfigurationsModel DomoticzProdURL = configurationsRepository.findBySetting(this.ConfigurationString);
         log.info("Done loading configuration settings for " + this.ConfigurationString);
-        // System.out.println(DomoticzProdWebClient.create(DomoticzProdURL.)
 
         RestTemplate restTemplate = new RestTemplate();
-        String jsonResponse = restTemplate.getForObject(DomoticzProdURL.getParameter(), String.class);
+        Main entity = restTemplate.getForObject(DomoticzProdURL.getParameter(), Main.class);
 
-        JsonParser jsonParser = JsonParserFactory.getJsonParser();
-        Map<String, Object> map = jsonParser.parseMap(jsonResponse);
-
-        String mapArray[] = new String[map.size()];
-        System.err.println("items found" + mapArray.length);
-
-        for (Map.Entry<String, Object> entry : map.entrySet()) {
-            System.err.println(entry.getValue());
-        }
+        //System.out.println(entity.resultList.size());
 
         log.info("Done creating measurements.");
     }
