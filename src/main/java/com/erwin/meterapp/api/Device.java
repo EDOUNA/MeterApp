@@ -37,7 +37,7 @@ public class Device {
             return; // End the scheduled task here
         }
 
-        // System.out.println(entity.resultList.size());
+        System.out.println(entity.getServerTime());
 
         log.info("Done creating measurements.");
     }

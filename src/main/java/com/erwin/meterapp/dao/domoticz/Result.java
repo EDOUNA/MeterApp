@@ -1,257 +1,336 @@
 package com.erwin.meterapp.dao.domoticz;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Result {
+public class Result implements Serializable {
 
-    private float AddjMulti;
-    private float AddjMulti2;
-    private float AddjValue;
-    private float AddjValue2;
-    private int BatteryLevel;
-    private String Counter;
-    private float CounterDeliv;
-    private String CounterDelivToday;
-    private String CounterToday;
-    private int CustomImage;
-    private String Data;
-    private String Description;
-    private int Favorite;
-    private int HardwareID;
-    private String HardwareName;
-    private String HardwareType;
-    private int HardwareTypeVal;
-    private boolean HaveTimeout;
-    private String ID;
-    private Timestamp LastUpdate;
-    private String Name;
-    private String Notifications;
-    private String PlanID;
-    private boolean Protected;
-    private boolean ShowNotifications;
-    private String SignalLevel;
+    @JsonProperty("AddjMulti")
+    private float addjMulti;
+
+    @JsonProperty("AddjMulti2")
+    private float addjMulti2;
+
+    @JsonProperty("AddjValue")
+    private float addjValue;
+
+    @JsonProperty("AddjValue2")
+    private float addjValue2;
+
+    @JsonProperty("BatteryLevel")
+    private int batteryLevel;
+
+    @JsonProperty("Counter")
+    private String counter;
+
+    @JsonProperty("CounterDeliv")
+    private float counterDeliv;
+
+    @JsonProperty("CounterDelivToday")
+    private String counterDelivToday;
+
+    @JsonProperty("CounterToday")
+    private String counterToday;
+
+    @JsonProperty("CustomImage")
+    private int customImage;
+
+    @JsonProperty("Data")
+    private String data;
+
+    @JsonProperty("Description")
+    private String description;
+
+    @JsonProperty("Favorite")
+    private int favorite;
+
+    @JsonProperty("HardwareID")
+    private int hardwareID;
+
+    @JsonProperty("HardwareName")
+    private String hardwareName;
+
+    @JsonProperty("HardwareType")
+    private String hardwareType;
+
+    @JsonProperty("HardwareTypeVal")
+    private int hardwareTypeVal;
+
+    @JsonProperty("HaveTimeout")
+    private boolean haveTimeout;
+
+    @JsonProperty("ID")
+    private String id;
+
+    @JsonProperty("LastUpdate")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss")
+    private Timestamp lastUpdate;
+
+    @JsonProperty("Name")
+    private String name;
+
+    @JsonProperty("Notifications")
+    private String notifications;
+
+    @JsonProperty("PlanID")
+    private String planId;
+
+    @JsonProperty("Protected")
+    private boolean bProtected;
+
+    @JsonProperty("ShowNotifications")
+    private boolean showNotifications;
+
+    @JsonProperty("SignalLevel")
+    private String signalLevel;
+
+    @JsonProperty("subType")
     private String SubType;
-    private int SwitchTypeVal;
-    private String Timers;
-    private String Type;
-    private String TypeImg;
-    private int Unit;
-    private String Usage;
-    private String UsageDeliv;
-    private int Used;
-    private String XOffset;
-    private String YOffset;
+
+    @JsonProperty("SwitchTypeVal")
+    private int switchTypeVal;
+
+    @JsonProperty("Timers")
+    private String timers;
+
+    @JsonProperty("Type")
+    private String type;
+
+    @JsonProperty("TypeImg")
+    private String typeImg;
+
+    @JsonProperty("Unit")
+    private int unit;
+
+    @JsonProperty("Usage")
+    private String usage;
+
+    @JsonProperty("UsageDeliv")
+    private String usageDeliv;
+
+    @JsonProperty("Used")
+    private int used;
+
+    @JsonProperty("XOffset")
+    private String xOffset;
+
+    @JsonProperty("YOffset")
+    private String yOffset;
+
+    @JsonProperty("idx")
     private String idx;
 
     public float getAddjMulti() {
-        return AddjMulti;
+        return addjMulti;
     }
 
     public void setAddjMulti(float addjMulti) {
-        AddjMulti = addjMulti;
+        this.addjMulti = addjMulti;
     }
 
     public float getAddjMulti2() {
-        return AddjMulti2;
+        return addjMulti2;
     }
 
     public void setAddjMulti2(float addjMulti2) {
-        AddjMulti2 = addjMulti2;
+        this.addjMulti2 = addjMulti2;
     }
 
     public float getAddjValue() {
-        return AddjValue;
+        return addjValue;
     }
 
     public void setAddjValue(float addjValue) {
-        AddjValue = addjValue;
+        this.addjValue = addjValue;
     }
 
     public float getAddjValue2() {
-        return AddjValue2;
+        return addjValue2;
     }
 
     public void setAddjValue2(float addjValue2) {
-        AddjValue2 = addjValue2;
+        this.addjValue2 = addjValue2;
     }
 
     public int getBatteryLevel() {
-        return BatteryLevel;
+        return batteryLevel;
     }
 
     public void setBatteryLevel(int batteryLevel) {
-        BatteryLevel = batteryLevel;
+        this.batteryLevel = batteryLevel;
     }
 
     public String getCounter() {
-        return Counter;
+        return counter;
     }
 
     public void setCounter(String counter) {
-        Counter = counter;
+        this.counter = counter;
     }
 
     public float getCounterDeliv() {
-        return CounterDeliv;
+        return counterDeliv;
     }
 
     public void setCounterDeliv(float counterDeliv) {
-        CounterDeliv = counterDeliv;
+        this.counterDeliv = counterDeliv;
     }
 
     public String getCounterDelivToday() {
-        return CounterDelivToday;
+        return counterDelivToday;
     }
 
     public void setCounterDelivToday(String counterDelivToday) {
-        CounterDelivToday = counterDelivToday;
+        this.counterDelivToday = counterDelivToday;
     }
 
     public String getCounterToday() {
-        return CounterToday;
+        return counterToday;
     }
 
     public void setCounterToday(String counterToday) {
-        CounterToday = counterToday;
+        this.counterToday = counterToday;
     }
 
     public int getCustomImage() {
-        return CustomImage;
+        return customImage;
     }
 
     public void setCustomImage(int customImage) {
-        CustomImage = customImage;
+        this.customImage = customImage;
     }
 
     public String getData() {
-        return Data;
+        return data;
     }
 
     public void setData(String data) {
-        Data = data;
+        this.data = data;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        this.description = description;
     }
 
     public int getFavorite() {
-        return Favorite;
+        return favorite;
     }
 
     public void setFavorite(int favorite) {
-        Favorite = favorite;
+        this.favorite = favorite;
     }
 
     public int getHardwareID() {
-        return HardwareID;
+        return hardwareID;
     }
 
     public void setHardwareID(int hardwareID) {
-        HardwareID = hardwareID;
+        this.hardwareID = hardwareID;
     }
 
     public String getHardwareName() {
-        return HardwareName;
+        return hardwareName;
     }
 
     public void setHardwareName(String hardwareName) {
-        HardwareName = hardwareName;
+        this.hardwareName = hardwareName;
     }
 
     public String getHardwareType() {
-        return HardwareType;
+        return hardwareType;
     }
 
     public void setHardwareType(String hardwareType) {
-        HardwareType = hardwareType;
+        this.hardwareType = hardwareType;
     }
 
     public int getHardwareTypeVal() {
-        return HardwareTypeVal;
+        return hardwareTypeVal;
     }
 
     public void setHardwareTypeVal(int hardwareTypeVal) {
-        HardwareTypeVal = hardwareTypeVal;
+        this.hardwareTypeVal = hardwareTypeVal;
     }
 
     public boolean isHaveTimeout() {
-        return HaveTimeout;
+        return haveTimeout;
     }
 
     public void setHaveTimeout(boolean haveTimeout) {
-        HaveTimeout = haveTimeout;
+        this.haveTimeout = haveTimeout;
     }
 
-    public String getID() {
-        return ID;
+    public String getId() {
+        return id;
     }
 
-    public void setID(String ID) {
-        this.ID = ID;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public Timestamp getLastUpdate() {
-        return LastUpdate;
+        return lastUpdate;
     }
 
     public void setLastUpdate(Timestamp lastUpdate) {
-        LastUpdate = lastUpdate;
+        this.lastUpdate = lastUpdate;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public String getNotifications() {
-        return Notifications;
+        return notifications;
     }
 
     public void setNotifications(String notifications) {
-        Notifications = notifications;
+        this.notifications = notifications;
     }
 
-    public String getPlanID() {
-        return PlanID;
+    public String getPlanId() {
+        return planId;
     }
 
-    public void setPlanID(String planID) {
-        PlanID = planID;
+    public void setPlanId(String planId) {
+        this.planId = planId;
     }
 
-    public boolean isProtected() {
-        return Protected;
+    public boolean isbProtected() {
+        return bProtected;
     }
 
-    public void setProtected(boolean aProtected) {
-        Protected = aProtected;
+    public void setbProtected(boolean bProtected) {
+        this.bProtected = bProtected;
     }
 
     public boolean isShowNotifications() {
-        return ShowNotifications;
+        return showNotifications;
     }
 
     public void setShowNotifications(boolean showNotifications) {
-        ShowNotifications = showNotifications;
+        this.showNotifications = showNotifications;
     }
 
     public String getSignalLevel() {
-        return SignalLevel;
+        return signalLevel;
     }
 
     public void setSignalLevel(String signalLevel) {
-        SignalLevel = signalLevel;
+        this.signalLevel = signalLevel;
     }
 
     public String getSubType() {
@@ -263,83 +342,83 @@ public class Result {
     }
 
     public int getSwitchTypeVal() {
-        return SwitchTypeVal;
+        return switchTypeVal;
     }
 
     public void setSwitchTypeVal(int switchTypeVal) {
-        SwitchTypeVal = switchTypeVal;
+        this.switchTypeVal = switchTypeVal;
     }
 
     public String getTimers() {
-        return Timers;
+        return timers;
     }
 
     public void setTimers(String timers) {
-        Timers = timers;
+        this.timers = timers;
     }
 
     public String getType() {
-        return Type;
+        return type;
     }
 
     public void setType(String type) {
-        Type = type;
+        this.type = type;
     }
 
     public String getTypeImg() {
-        return TypeImg;
+        return typeImg;
     }
 
     public void setTypeImg(String typeImg) {
-        TypeImg = typeImg;
+        this.typeImg = typeImg;
     }
 
     public int getUnit() {
-        return Unit;
+        return unit;
     }
 
     public void setUnit(int unit) {
-        Unit = unit;
+        this.unit = unit;
     }
 
     public String getUsage() {
-        return Usage;
+        return usage;
     }
 
     public void setUsage(String usage) {
-        Usage = usage;
+        this.usage = usage;
     }
 
     public String getUsageDeliv() {
-        return UsageDeliv;
+        return usageDeliv;
     }
 
     public void setUsageDeliv(String usageDeliv) {
-        UsageDeliv = usageDeliv;
+        this.usageDeliv = usageDeliv;
     }
 
     public int getUsed() {
-        return Used;
+        return used;
     }
 
     public void setUsed(int used) {
-        Used = used;
+        this.used = used;
     }
 
-    public String getXOffset() {
-        return XOffset;
+    public String getxOffset() {
+        return xOffset;
     }
 
-    public void setXOffset(String XOffset) {
-        this.XOffset = XOffset;
+    public void setxOffset(String xOffset) {
+        this.xOffset = xOffset;
     }
 
-    public String getYOffset() {
-        return YOffset;
+    public String getyOffset() {
+        return yOffset;
     }
 
-    public void setYOffset(String YOffset) {
-        this.YOffset = YOffset;
+    public void setyOffset(String yOffset) {
+        this.yOffset = yOffset;
     }
 
     public String getIdx() {
