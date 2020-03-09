@@ -34,6 +34,7 @@ public class Device {
             entity = restTemplate.getForObject(DomoticzProdURL.getParameter(), Main.class);
         } catch (Exception e) {
             log.error("Failed fetching message from Domoticz. Error message returned: " + e.getMessage());
+            return; // End the scheduled task here
         }
 
         // System.out.println(entity.resultList.size());
