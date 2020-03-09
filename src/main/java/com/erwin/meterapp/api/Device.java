@@ -28,9 +28,14 @@ public class Device {
         log.info("Done loading configuration settings for " + this.ConfigurationString);
 
         RestTemplate restTemplate = new RestTemplate();
-        Main entity = restTemplate.getForObject(DomoticzProdURL.getParameter(), Main.class);
 
-        //System.out.println(entity.resultList.size());
+        try {
+            Main entity = restTemplate.getForObject(DomoticzProdURL.getParameter(), Main.class);
+        } catch (Exception e) {
+            log.error("Failed fetching message from Domoticz. Error message returned: " + e.getMessage());
+        }
+
+        // System.out.println(entity.resultList.size());
 
         log.info("Done creating measurements.");
     }
