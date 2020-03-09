@@ -31,8 +31,9 @@ public class DevicesModel {
     @Column(name = "device_type_id")
     private int deviceTypeId;
 
-    @Column(name = "tariff_id")
-    private int tariffId;
+    @OneToOne
+    @JoinColumn(name = "tariff_id", referencedColumnName = "id")
+    private DeviceTariffsModel tariffsModel;
 
     @Column(name = "active")
     private int active;
@@ -85,12 +86,12 @@ public class DevicesModel {
         this.deviceTypeId = deviceTypeId;
     }
 
-    public int getTariffId() {
-        return tariffId;
+    public DeviceTariffsModel getTariffsModel() {
+        return tariffsModel;
     }
 
-    public void setTariffId(int tariffId) {
-        this.tariffId = tariffId;
+    public void setTariffsModel(DeviceTariffsModel tariffsModel) {
+        this.tariffsModel = tariffsModel;
     }
 
     public int getActive() {
@@ -99,5 +100,19 @@ public class DevicesModel {
 
     public void setActive(int active) {
         this.active = active;
+    }
+
+    @Override
+    public String toString() {
+        return "DevicesModel{" +
+                "id=" + id +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", descritpion='" + descritpion + '\'' +
+                ", identifier=" + identifier +
+                ", deviceTypeId=" + deviceTypeId +
+                ", tariffsModel=" + tariffsModel +
+                ", active=" + active +
+                '}';
     }
 }

@@ -26,13 +26,18 @@ public class DeviceMeasurements {
         String[] counterValue = entity.getCounterToday().split(" ");
 
         // Insert a new record
-        DeviceMeasurementsModel measurementsModel = new DeviceMeasurementsModel();
-        measurementsModel.setDeviceId((int) device.getId());
-        measurementsModel.setAmount(Float.parseFloat(counterValue[0]));
-        System.out.println(measurementsModel.toString());
+        try {
+            DeviceMeasurementsModel measurementsModel = new DeviceMeasurementsModel();
+            measurementsModel.setDeviceId((int) device.getId());
+            measurementsModel.setAmount(Float.parseFloat(counterValue[0]));
+            measurementsModel.setDeviceTariffs(device.getTariffsModel());
 
-        // Save the entity
-        deviceMeasurementsRepository.save(measurementsModel);
+            // Save the entity
+            deviceMeasurementsRepository.save(measurementsModel);
+        } catch (Exception e) {
+            log.error("Unable to insert new record for device " + device.getDescritpion());
+            return false;
+        }
 
         return true;
     }

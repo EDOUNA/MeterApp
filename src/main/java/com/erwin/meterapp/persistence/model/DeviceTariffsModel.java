@@ -23,8 +23,9 @@ public class DeviceTariffsModel {
     @UpdateTimestamp
     private Timestamp updatedAt;
 
-    @Column(name = "currency_id")
-    private int currencyId;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "currency_id", referencedColumnName = "id")
+    private CurrenciesModel currency;
 
     @Column(name = "amount")
     private float amount;
