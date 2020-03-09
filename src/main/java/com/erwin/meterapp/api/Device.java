@@ -29,8 +29,9 @@ public class Device {
 
         RestTemplate restTemplate = new RestTemplate();
 
+        Main entity = null;
         try {
-            Main entity = restTemplate.getForObject(DomoticzProdURL.getParameter(), Main.class);
+            entity = restTemplate.getForObject(DomoticzProdURL.getParameter(), Main.class);
         } catch (Exception e) {
             log.error("Failed fetching message from Domoticz. Error message returned: " + e.getMessage());
         }
