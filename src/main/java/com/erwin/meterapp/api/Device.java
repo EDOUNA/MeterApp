@@ -1,9 +1,12 @@
 package com.erwin.meterapp.api;
 
 import com.erwin.meterapp.dao.domoticz.Main;
+import com.erwin.meterapp.dao.domoticz.Result;
 import com.erwin.meterapp.persistence.model.ConfigurationsModel;
+import com.erwin.meterapp.persistence.model.DevicesModel;
 import com.erwin.meterapp.persistence.repository.ConfigurationsRepository;
 import com.erwin.meterapp.persistence.repository.DeviceMeasurementsRepository;
+import com.erwin.meterapp.persistence.repository.DevicesRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +18,16 @@ public class Device {
 
     private static final Logger log = LoggerFactory.getLogger(Device.class);
     private final String ConfigurationString = "domoticz_meter_prod_url";
+    private ConfigurationsModel DomoticzProdURL;
 
     @Autowired
     private DeviceMeasurementsRepository deviceMeasurementsRepository;
 
     @Autowired
     private ConfigurationsRepository configurationsRepository;
+
+    @Autowired
+    private DevicesRepository devicesRepository;
 
     public void BatchProcessDeviceMeasurements() {
         log.info("Loading configuration for " + this.ConfigurationString);
@@ -37,7 +44,20 @@ public class Device {
             return; // End the scheduled task here
         }
 
-        System.out.println(entity.getServerTime());
+        System.out.println(entity.toString());
+
+        // Loop through the results array
+        for (Result result : entity.result) {
+            // First try to see if the deviceID is matched with the IDX and if it's active
+            DevicesModel device = devicesRepository.findByIdentifierAndActive(result.getIdx());
+
+            // Stop processing if nothing is found
+            if (null == device) {
+                log.warn("No (active) device found for device ID: " + result.getIdx());
+                break;
+            }
+            System.out.println(device.toString());
+        }
 
         log.info("Done creating measurements.");
     }

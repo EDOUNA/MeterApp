@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.time.LocalTime;
+import java.util.Arrays;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Main implements Serializable {
@@ -156,5 +157,25 @@ public class Main implements Serializable {
 
     public void setAppVersion(String appVersion) {
         this.appVersion = appVersion;
+    }
+
+    @Override
+    public String toString() {
+        return "Main{" +
+                "actTime=" + actTime +
+                ", astrTwilightEnd=" + astrTwilightEnd +
+                ", astrTwilightStart=" + astrTwilightStart +
+                ", civTwilightEnd=" + civTwilightEnd +
+                ", civTwilightStart=" + civTwilightStart +
+                ", dayLength=" + dayLength +
+                ", nautTwilightEnd=" + nautTwilightEnd +
+                ", nautTwilightStart=" + nautTwilightStart +
+                ", serverTime=" + serverTime +
+                ", sunAtSouth=" + sunAtSouth +
+                ", sunrise=" + sunrise +
+                ", sunset=" + sunset +
+                ", appVersion='" + appVersion + '\'' +
+                ", result=" + Arrays.toString(result) +
+                '}';
     }
 }

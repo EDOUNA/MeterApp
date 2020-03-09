@@ -123,7 +123,7 @@ public class Result implements Serializable {
     private String yOffset;
 
     @JsonProperty("idx")
-    private String idx;
+    private int idx;
 
     public float getAddjMulti() {
         return addjMulti;
@@ -421,11 +421,55 @@ public class Result implements Serializable {
         this.yOffset = yOffset;
     }
 
-    public String getIdx() {
+    public int getIdx() {
         return idx;
     }
 
-    public void setIdx(String idx) {
+    public void setIdx(int idx) {
         this.idx = idx;
+    }
+
+    @Override
+    public String toString() {
+        return "Result{" +
+                "addjMulti=" + addjMulti +
+                ", addjMulti2=" + addjMulti2 +
+                ", addjValue=" + addjValue +
+                ", addjValue2=" + addjValue2 +
+                ", batteryLevel=" + batteryLevel +
+                ", counter='" + counter + '\'' +
+                ", counterDeliv=" + counterDeliv +
+                ", counterDelivToday='" + counterDelivToday + '\'' +
+                ", counterToday='" + counterToday + '\'' +
+                ", customImage=" + customImage +
+                ", data='" + data + '\'' +
+                ", description='" + description + '\'' +
+                ", favorite=" + favorite +
+                ", hardwareID=" + hardwareID +
+                ", hardwareName='" + hardwareName + '\'' +
+                ", hardwareType='" + hardwareType + '\'' +
+                ", hardwareTypeVal=" + hardwareTypeVal +
+                ", haveTimeout=" + haveTimeout +
+                ", id='" + id + '\'' +
+                ", lastUpdate=" + lastUpdate +
+                ", name='" + name + '\'' +
+                ", notifications='" + notifications + '\'' +
+                ", planId='" + planId + '\'' +
+                ", bProtected=" + bProtected +
+                ", showNotifications=" + showNotifications +
+                ", signalLevel='" + signalLevel + '\'' +
+                ", SubType='" + SubType + '\'' +
+                ", switchTypeVal=" + switchTypeVal +
+                ", timers='" + timers + '\'' +
+                ", type='" + type + '\'' +
+                ", typeImg='" + typeImg + '\'' +
+                ", unit=" + unit +
+                ", usage='" + usage + '\'' +
+                ", usageDeliv='" + usageDeliv + '\'' +
+                ", used=" + used +
+                ", xOffset='" + xOffset + '\'' +
+                ", yOffset='" + yOffset + '\'' +
+                ", idx='" + idx + '\'' +
+                '}';
     }
 }
