@@ -1,6 +1,6 @@
 package com.erwin.meterapp.scheduledTasks;
 
-import com.erwin.meterapp.api.Device;
+import com.erwin.meterapp.api.Devices;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +13,13 @@ public class MeterAppSchedule {
     private static final Logger log = LoggerFactory.getLogger(MeterAppSchedule.class);
 
     @Autowired
-    Device device;
+    Devices devices;
 
     @Scheduled(fixedRate = 5000)
     public void reportCurrentLog() {
         log.info("Creating device class instance");
         
         // Create a new device instance to proper handle the logging
-        device.BatchProcessDeviceMeasurements();
+        devices.BatchProcessDeviceMeasurements();
     }
 }

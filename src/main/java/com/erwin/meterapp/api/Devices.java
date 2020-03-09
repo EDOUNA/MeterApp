@@ -14,9 +14,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.client.RestTemplate;
 
 @Controller
-public class Device {
+public class Devices {
 
-    private static final Logger log = LoggerFactory.getLogger(Device.class);
+    private static final Logger log = LoggerFactory.getLogger(Devices.class);
     private final String ConfigurationString = "domoticz_meter_prod_url";
     private ConfigurationsModel DomoticzProdURL;
 
@@ -49,16 +49,22 @@ public class Device {
         // Loop through the results array
         for (Result result : entity.result) {
             // First try to see if the deviceID is matched with the IDX and if it's active
-            DevicesModel device = devicesRepository.findByIdentifierAndActive(result.getIdx());
+            Integer indentifier = result.getIdx();
+            DevicesModel device = devicesRepository.findByIdentifierAndActive(indentifier);
 
             // Stop processing if nothing is found
             if (null == device) {
-                log.warn("No (active) device found for device ID: " + result.getIdx());
+                log.warn("No (active) device found for device ID: " + indentifier);
                 break;
             }
-            System.out.println(device.toString());
+
+            // Create a new measurement
+            DeviceMeasurements measurements = new DeviceMeasurements();
+            measurements.createMeasurement(device, result, deviceMeasurementsRepository);
+
+            log.info("Done processing for device " + device.getDescritpion());
         }
 
-        log.info("Done creating measurements.");
+        log.info("Done processing all measurements");
     }
 }

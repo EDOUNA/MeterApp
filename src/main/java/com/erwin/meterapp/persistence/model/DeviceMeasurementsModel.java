@@ -5,10 +5,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Objects;
 
 @Entity
-@Table(name = "device_measurements_copy")
+@Table(name = "device_measurements")
 public class DeviceMeasurementsModel {
 
     @Id
@@ -29,51 +28,14 @@ public class DeviceMeasurementsModel {
     @Column(name = "tariff_id")
     private int tariffId;
 
-    @Column(name = "migrated")
-    private int migrated;
-
     @Column(name = "amount")
     private float amount;
 
-    public DeviceMeasurementsModel(long id, Timestamp createdAt, Timestamp updatedAt, int deviceId, int tariffId,
-            int migrated, float amount) {
-        this.id = id;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.deviceId = deviceId;
-        this.tariffId = tariffId;
-        this.migrated = migrated;
-        this.amount = amount;
-    }
-
-    public int getMigrated() {
-        return this.migrated;
-    }
-
-    public void setMigrated(int migrated) {
-        this.migrated = migrated;
-    }
-
-    public DeviceMeasurementsModel migrated(int migrated) {
-        this.migrated = migrated;
-        return this;
-    }
-
-    public DeviceMeasurementsModel() {
-    }
-
-    public DeviceMeasurementsModel(long id, Timestamp createdAt, Timestamp updatedAt, int deviceId, int tariffId,
-            float amount) {
-        this.id = id;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.deviceId = deviceId;
-        this.tariffId = tariffId;
-        this.amount = amount;
-    }
+    @Column(name = "json_serialize")
+    private String jsonSerialize;
 
     public long getId() {
-        return this.id;
+        return id;
     }
 
     public void setId(long id) {
@@ -81,7 +43,7 @@ public class DeviceMeasurementsModel {
     }
 
     public Timestamp getCreatedAt() {
-        return this.createdAt;
+        return createdAt;
     }
 
     public void setCreatedAt(Timestamp createdAt) {
@@ -89,7 +51,7 @@ public class DeviceMeasurementsModel {
     }
 
     public Timestamp getUpdatedAt() {
-        return this.updatedAt;
+        return updatedAt;
     }
 
     public void setUpdatedAt(Timestamp updatedAt) {
@@ -97,7 +59,7 @@ public class DeviceMeasurementsModel {
     }
 
     public int getDeviceId() {
-        return this.deviceId;
+        return deviceId;
     }
 
     public void setDeviceId(int deviceId) {
@@ -105,7 +67,7 @@ public class DeviceMeasurementsModel {
     }
 
     public int getTariffId() {
-        return this.tariffId;
+        return tariffId;
     }
 
     public void setTariffId(int tariffId) {
@@ -113,66 +75,31 @@ public class DeviceMeasurementsModel {
     }
 
     public float getAmount() {
-        return this.amount;
+        return amount;
     }
 
     public void setAmount(float amount) {
         this.amount = amount;
     }
 
-    public DeviceMeasurementsModel id(long id) {
-        this.id = id;
-        return this;
+    public String getJsonSerialize() {
+        return jsonSerialize;
     }
 
-    public DeviceMeasurementsModel createdAt(Timestamp createdAt) {
-        this.createdAt = createdAt;
-        return this;
-    }
-
-    public DeviceMeasurementsModel updatedAt(Timestamp updatedAt) {
-        this.updatedAt = updatedAt;
-        return this;
-    }
-
-    public DeviceMeasurementsModel deviceId(int deviceId) {
-        this.deviceId = deviceId;
-        return this;
-    }
-
-    public DeviceMeasurementsModel tariffId(int tariffId) {
-        this.tariffId = tariffId;
-        return this;
-    }
-
-    public DeviceMeasurementsModel amount(float amount) {
-        this.amount = amount;
-        return this;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof DeviceMeasurementsModel)) {
-            return false;
-        }
-        DeviceMeasurementsModel deviceMeasurementsModel = (DeviceMeasurementsModel) o;
-        return id == deviceMeasurementsModel.id && Objects.equals(createdAt, deviceMeasurementsModel.createdAt)
-                && Objects.equals(updatedAt, deviceMeasurementsModel.updatedAt)
-                && deviceId == deviceMeasurementsModel.deviceId && tariffId == deviceMeasurementsModel.tariffId
-                && amount == deviceMeasurementsModel.amount;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, createdAt, updatedAt, deviceId, tariffId, amount);
+    public void setJsonSerialize(String jsonSerialize) {
+        this.jsonSerialize = jsonSerialize;
     }
 
     @Override
     public String toString() {
-        return "{" + " id='" + getId() + "'" + ", createdAt='" + getCreatedAt() + "'" + ", updatedAt='" + getUpdatedAt()
-                + "'" + ", deviceId='" + getDeviceId() + "'" + ", tariffId='" + getTariffId() + "'" + ", amount='"
-                + getAmount() + "'" + "}";
+        return "DeviceMeasurementsModel{" +
+                "id=" + id +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", deviceId=" + deviceId +
+                ", tariffId=" + tariffId +
+                ", amount=" + amount +
+                ", jsonSerialize='" + jsonSerialize + '\'' +
+                '}';
     }
 }
