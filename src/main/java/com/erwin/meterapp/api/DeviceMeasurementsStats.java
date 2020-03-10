@@ -34,15 +34,7 @@ public class DeviceMeasurementsStats {
 
         for (DevicesModel device : devices) {
             // Find all measurements made today
-            List<DeviceMeasurementsModel> measurements;
-
-            try {
-                measurements = deviceMeasurementsRepository.findByDeviceIdAndCreatedToday((int) device.getId());
-            } catch (Exception e) {
-                log.error("Unable to fetch data for all measurements. Stacktrace: " + e.getStackTrace());
-                return;
-            }
-
+            List<DeviceMeasurementsModel> measurements = deviceMeasurementsRepository.findByDeviceIdAndCreatedToday(device.getId());
             if (null == measurements) {
                 log.warn("No measurements (yet) found. Whilst this is odd, let's retry in the next batch.");
                 return;
@@ -51,14 +43,31 @@ public class DeviceMeasurementsStats {
             // Calculate how much has been consumed
             DeviceMeasurementsModel firstElement = measurements.get(0);
             DeviceMeasurementsModel lastElement = measurements.get(measurements.size() - 1);
-            float consumed = lastElement.getAmount() - firstElement.getAmount();
-
-            System.out.println(consumed);
+            float consumed = firstElement.getAmount() - lastElement.getAmount();
+            System.out.println("Consumption for device " + device.getDescritpion() + " is " + consumed);
 
             // Now try to see if this record is already present in the stats table
-            DeviceMeasurementsStatsModel statsModel = deviceMeasurementsStatsRepository.findByDeviceAndTariffAndHour(device.getId(), device.getTariffsModel().getId(), LocalTime.now().getHour());
+            Integer currentHour = LocalTime.now().getHour();
+            DeviceMeasurementsStatsModel statsModel = deviceMeasurementsStatsRepository.findByDeviceAndTariffAndHour(device.getId(), device.getTariffsModel().getId(), currentHour);
+
+            // No stats row has been found, create a new one
+            if (null == statsModel) {
+                DeviceMeasurementsStatsModel newModel = new DeviceMeasurementsStatsModel();
+                newModel.setAmount(consumed);
+                newModel.setDevice(device);
+                newModel.setTariff(device.getTariffsModel());
+                newModel.setHour(currentHour);
+
+                // All set, save the record
+                deviceMeasurementsStatsRepository.save(newModel);
+
+                // Since we are done here, continue the loop for other devices
+                continue;
+            }
+
+            // If found, update the record
+            statsModel.setAmount(consumed);
+            deviceMeasurementsStatsRepository.save(statsModel);
         }
-
-
     }
 }
