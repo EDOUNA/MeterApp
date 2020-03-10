@@ -18,7 +18,6 @@ public class Devices {
 
     private static final Logger log = LoggerFactory.getLogger(Devices.class);
     private final String ConfigurationString = "domoticz_meter_prod_url";
-    private ConfigurationsModel DomoticzProdURL;
 
     @Autowired
     private DeviceMeasurementsRepository deviceMeasurementsRepository;

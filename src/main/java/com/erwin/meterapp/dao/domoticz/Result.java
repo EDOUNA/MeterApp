@@ -4,11 +4,10 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Result implements Serializable {
+public class Result {
 
     @JsonProperty("AddjMulti")
     private float addjMulti;
