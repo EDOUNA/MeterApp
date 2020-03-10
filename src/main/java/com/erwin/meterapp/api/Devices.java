@@ -43,8 +43,6 @@ public class Devices {
             return; // End the scheduled task here
         }
 
-        System.out.println(entity.toString());
-
         // Loop through the results array
         for (Result result : entity.result) {
             // First try to see if the deviceID is matched with the IDX and if it's active
