@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "device_measurements_state")
+@Table(name = "device_measurements_stats")
 public class DeviceMeasurementsStatsModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
