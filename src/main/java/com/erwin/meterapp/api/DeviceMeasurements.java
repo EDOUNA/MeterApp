@@ -31,6 +31,13 @@ public class DeviceMeasurements {
         // Proper formatting is like "400 kWh", or "300 m3". The first spot contains the actual amount
         String[] counterValue = entity.getCounterToday().split(" ");
 
+        // Try to find an active set device tariff
+        DeviceTariffsModel deviceTariff = this.findActiveDeviceTariff(device);
+        if (null == deviceTariff) {
+            log.warn("No active or valid device tariff found for " + device.getDescritpion());
+            return false;
+        }
+
         try {
             // Insert a new record
             DeviceMeasurementsModel measurementsModel = new DeviceMeasurementsModel();
@@ -38,7 +45,7 @@ public class DeviceMeasurements {
             measurementsModel.setAmount(Float.parseFloat(counterValue[0]));
 
             // Find and set the active device tariff
-            measurementsModel.setDeviceTariffs(this.findActiveDeviceTariff(device));
+            measurementsModel.setDeviceTariffs(deviceTariff);
 
             // Save the entity
             deviceMeasurementsRepository.save(measurementsModel);
@@ -46,16 +53,22 @@ public class DeviceMeasurements {
             log.error("Unable to insert new record for device " + device.getDescritpion() + ". Stacktrace: " + e.getStackTrace());
             return false;
         }
-
         return true;
     }
 
     /**
+     * Find an active and valid device tariff
      * @param device
      * @return
      */
     public DeviceTariffsModel findActiveDeviceTariff(DevicesModel device) {
-        DeviceTariffsModel deviceTariffsModel = deviceTariffRepository.findActiveTariffByDeviceId((int) device.getId());
+        DeviceTariffsModel deviceTariffsModel = null;
+
+        try {
+            deviceTariffsModel = deviceTariffRepository.findActiveTariffByDeviceId(device.getTariffsModel().getId());
+        } catch (Exception e) {
+            log.error("Unable to perform device tariff query. Stacktrace: " + e.getStackTrace());
+        }
 
         return deviceTariffsModel;
     }

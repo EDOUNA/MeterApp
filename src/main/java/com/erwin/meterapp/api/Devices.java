@@ -28,6 +28,12 @@ public class Devices {
     @Autowired
     private DevicesRepository devicesRepository;
 
+    @Autowired
+    private DeviceMeasurements deviceMeasurements;
+
+    @Autowired
+    private DeviceMeasurementsStats deviceMeasurementsStats;
+
     public void BatchProcessDeviceMeasurements() {
         log.info("Loading configuration for " + this.ConfigurationString);
         ConfigurationsModel DomoticzProdURL = configurationsRepository.findBySetting(this.ConfigurationString);
@@ -35,7 +41,7 @@ public class Devices {
 
         RestTemplate restTemplate = new RestTemplate();
 
-        Main entity = null;
+        Main entity;
         try {
             entity = restTemplate.getForObject(DomoticzProdURL.getParameter(), Main.class);
         } catch (Exception e) {
@@ -46,22 +52,22 @@ public class Devices {
         // Loop through the results array
         for (Result result : entity.result) {
             // First try to see if the deviceID is matched with the IDX and if it's active
-            Integer indentifier = result.getIdx();
-            DevicesModel device = devicesRepository.findByIdentifierAndActive(indentifier);
+            Integer identifier = result.getIdx();
+            DevicesModel device = devicesRepository.findByIdentifierAndActive(identifier);
 
             // Stop processing if nothing is found
             if (null == device) {
-                log.warn("No (active) device found for device ID: " + indentifier);
+                log.warn("No (active) device found for device ID: " + identifier);
                 break;
             }
 
             // Create a new measurement
-            DeviceMeasurements measurements = new DeviceMeasurements();
-            measurements.createMeasurement(device, result, deviceMeasurementsRepository);
-
+            deviceMeasurements.createMeasurement(device, result, deviceMeasurementsRepository);
             log.info("Done processing for device " + device.getDescritpion());
         }
 
-        log.info("Done processing all measurements");
+        log.info("Done processing all measurements. Triggering update stats table");
+        deviceMeasurementsStats.updateStatsTable();
+        log.info("Done updating stats table");
     }
 }

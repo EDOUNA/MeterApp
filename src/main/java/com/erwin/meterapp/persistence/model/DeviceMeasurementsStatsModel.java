@@ -7,12 +7,11 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "device_measurements")
-public class DeviceMeasurementsModel {
-
+@Table(name = "device_measurements_state")
+public class DeviceMeasurementsStatsModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
 
     @Column(name = "created_at")
     @CreationTimestamp
@@ -22,21 +21,25 @@ public class DeviceMeasurementsModel {
     @UpdateTimestamp
     private Timestamp updatedAt;
 
-    @Column(name = "device_id")
-    private int deviceId;
+    @OneToOne
+    @JoinColumn(name = "device_id", referencedColumnName = "id")
+    private DevicesModel device;
 
-    @OneToOne()
+    @OneToOne
     @JoinColumn(name = "tariff_id", referencedColumnName = "id")
-    private DeviceTariffsModel deviceTariffs;
+    private DeviceTariffsModel tariff;
+
+    @Column(name = "hour")
+    private int hour;
 
     @Column(name = "amount")
     private float amount;
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -56,20 +59,28 @@ public class DeviceMeasurementsModel {
         this.updatedAt = updatedAt;
     }
 
-    public int getDeviceId() {
-        return deviceId;
+    public DevicesModel getDevice() {
+        return device;
     }
 
-    public void setDeviceId(int deviceId) {
-        this.deviceId = deviceId;
+    public void setDevice(DevicesModel device) {
+        this.device = device;
     }
 
-    public DeviceTariffsModel getDeviceTariffs() {
-        return deviceTariffs;
+    public DeviceTariffsModel getTariff() {
+        return tariff;
     }
 
-    public void setDeviceTariffs(DeviceTariffsModel deviceTariffs) {
-        this.deviceTariffs = deviceTariffs;
+    public void setTariff(DeviceTariffsModel tariff) {
+        this.tariff = tariff;
+    }
+
+    public int getHour() {
+        return hour;
+    }
+
+    public void setHour(int hour) {
+        this.hour = hour;
     }
 
     public float getAmount() {
@@ -82,12 +93,13 @@ public class DeviceMeasurementsModel {
 
     @Override
     public String toString() {
-        return "DeviceMeasurementsModel{" +
+        return "DeviceMeasurementsStatsModel{" +
                 "id=" + id +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
-                ", deviceId=" + deviceId +
-                ", deviceTariffs=" + deviceTariffs +
+                ", device=" + device +
+                ", tariff=" + tariff +
+                ", hour=" + hour +
                 ", amount=" + amount +
                 '}';
     }
