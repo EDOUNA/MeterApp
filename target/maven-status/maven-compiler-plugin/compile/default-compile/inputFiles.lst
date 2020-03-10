@@ -1,0 +1,15 @@
+D:\Development\MeterApp\src\main\java\com\erwin\meterapp\dao\domoticz\Main.java
+D:\Development\MeterApp\src\main\java\com\erwin\meterapp\persistence\model\DeviceMeasurementsModel.java
+D:\Development\MeterApp\src\main\java\com\erwin\meterapp\persistence\repository\DevicesRepository.java
+D:\Development\MeterApp\src\main\java\com\erwin\meterapp\MeterApp.java
+D:\Development\MeterApp\src\main\java\com\erwin\meterapp\persistence\model\DeviceTariffsModel.java
+D:\Development\MeterApp\src\main\java\com\erwin\meterapp\persistence\repository\DeviceTariffRepository.java
+D:\Development\MeterApp\src\main\java\com\erwin\meterapp\api\DeviceMeasurements.java
+D:\Development\MeterApp\src\main\java\com\erwin\meterapp\scheduledTasks\MeterAppSchedule.java
+D:\Development\MeterApp\src\main\java\com\erwin\meterapp\dao\domoticz\Result.java
+D:\Development\MeterApp\src\main\java\com\erwin\meterapp\persistence\model\ConfigurationsModel.java
+D:\Development\MeterApp\src\main\java\com\erwin\meterapp\api\Devices.java
+D:\Development\MeterApp\src\main\java\com\erwin\meterapp\persistence\repository\ConfigurationsRepository.java
+D:\Development\MeterApp\src\main\java\com\erwin\meterapp\persistence\model\DevicesModel.java
+D:\Development\MeterApp\src\main\java\com\erwin\meterapp\persistence\repository\DeviceMeasurementsRepository.java
+D:\Development\MeterApp\src\main\java\com\erwin\meterapp\persistence\model\CurrenciesModel.java

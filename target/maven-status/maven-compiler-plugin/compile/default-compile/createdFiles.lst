@@ -1,0 +1,15 @@
+com\erwin\meterapp\persistence\repository\DeviceMeasurementsRepository.class
+com\erwin\meterapp\persistence\repository\DeviceTariffRepository.class
+com\erwin\meterapp\persistence\repository\ConfigurationsRepository.class
+com\erwin\meterapp\dao\domoticz\Result.class
+com\erwin\meterapp\persistence\model\DevicesModel.class
+com\erwin\meterapp\persistence\model\DeviceTariffsModel.class
+com\erwin\meterapp\persistence\model\ConfigurationsModel.class
+com\erwin\meterapp\persistence\model\CurrenciesModel.class
+com\erwin\meterapp\api\Devices.class
+com\erwin\meterapp\dao\domoticz\Main.class
+com\erwin\meterapp\persistence\model\DeviceMeasurementsModel.class
+com\erwin\meterapp\api\DeviceMeasurements.class
+com\erwin\meterapp\MeterApp.class
+com\erwin\meterapp\persistence\repository\DevicesRepository.class
+com\erwin\meterapp\scheduledTasks\MeterAppSchedule.class
