@@ -35,13 +35,11 @@ public class Devices {
     private DeviceMeasurementsStats deviceMeasurementsStats;
 
     public void BatchProcessDeviceMeasurements() {
-        log.info("Loading configuration for " + this.ConfigurationString);
         ConfigurationsModel DomoticzProdURL = configurationsRepository.findBySetting(this.ConfigurationString);
-        log.info("Done loading configuration settings for " + this.ConfigurationString);
 
         RestTemplate restTemplate = new RestTemplate();
-
         Main entity;
+
         try {
             entity = restTemplate.getForObject(DomoticzProdURL.getParameter(), Main.class);
         } catch (Exception e) {

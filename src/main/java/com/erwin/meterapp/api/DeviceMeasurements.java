@@ -20,13 +20,13 @@ public class DeviceMeasurements {
     private DeviceTariffRepository deviceTariffRepository;
 
     /**
+     * Create a measurement
      * @param device
      * @param entity
+     * @param deviceMeasurementsRepository
      * @return
      */
     public boolean createMeasurement(DevicesModel device, Result entity, DeviceMeasurementsRepository deviceMeasurementsRepository) {
-        log.info("Creating measurement for device ID: " + device.getId());
-
         // Determine the right counter value
         // Proper formatting is like "400 kWh", or "300 m3". The first spot contains the actual amount
         String[] counterValue = entity.getCounterToday().split(" ");
