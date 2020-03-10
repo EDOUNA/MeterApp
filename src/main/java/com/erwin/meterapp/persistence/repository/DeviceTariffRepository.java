@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 public interface DeviceTariffRepository extends CrudRepository<DeviceTariffsModel, Integer> {
+    
+    // Find a single row mathing the deviceTariff ID. The end_date needs to be NULL, indicated it's still active for usage
     @Query("SELECT t FROM DevicesTariffModel t WHERE t.id = ?1 AND t.end_date IS NULL")
     DeviceTariffsModel findActiveTariffByDeviceId(Integer id);
 }
