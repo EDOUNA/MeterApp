@@ -1,4 +1,4 @@
-package com.erwin.meterapp.api;
+package com.erwin.meterapp.controller;
 
 import com.erwin.meterapp.dao.domoticz.Result;
 import com.erwin.meterapp.persistence.model.DeviceMeasurementsModel;

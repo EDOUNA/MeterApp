@@ -1,6 +1,7 @@
 package com.erwin.meterapp.scheduledTasks;
 
-import com.erwin.meterapp.api.Devices;
+import com.erwin.meterapp.controller.Devices;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

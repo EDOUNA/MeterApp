@@ -1,4 +1,4 @@
-package com.erwin.meterapp.api;
+package com.erwin.meterapp.controller;
 
 import com.erwin.meterapp.dao.domoticz.Main;
 import com.erwin.meterapp.dao.domoticz.Result;
