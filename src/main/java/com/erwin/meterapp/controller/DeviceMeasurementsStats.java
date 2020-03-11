@@ -31,30 +31,31 @@ public class DeviceMeasurementsStats {
 
     @Async
     public void updateStatsTable() {
-        // Loop through all active devices
-        final List<DevicesModel> devices = devicesRepository.findByActive();
+        log.info("Starting update process");
 
+        // Loop through all active devices
+        List<DevicesModel> devices = devicesRepository.findByActive();
         for (final DevicesModel device : devices) {
             // Find all measurements made today
-            final List<DeviceMeasurementsModel> measurements = deviceMeasurementsRepository.findByDeviceIdAndCreatedToday(device.getId());
+            List<DeviceMeasurementsModel> measurements = deviceMeasurementsRepository.findByDeviceIdAndCreatedToday(device.getId());
             if (null == measurements) {
                 log.warn("No measurements (yet) found. Whilst this is odd, let's retry in the next batch.");
                 return;
             }
 
             // Calculate how much has been consumed
-            final DeviceMeasurementsModel firstElement = measurements.get(0);
-            final DeviceMeasurementsModel lastElement = measurements.get(measurements.size() - 1);
-            final float consumed = firstElement.getAmount() - lastElement.getAmount();
+            DeviceMeasurementsModel firstElement = measurements.get(0);
+            DeviceMeasurementsModel lastElement = measurements.get(measurements.size() - 1);
+            float consumed = lastElement.getAmount() - firstElement.getAmount();
             System.out.println("Consumption for device " + device.getDescritpion() + " is " + consumed);
 
             // Now try to see if this record is already present in the stats table
-            final Integer currentHour = LocalTime.now().getHour();
-            final DeviceMeasurementsStatsModel statsModel = deviceMeasurementsStatsRepository.findByDeviceAndTariffAndHour(device.getId(), device.getTariffsModel().getId(), currentHour);
+            Integer currentHour = LocalTime.now().getHour();
+            DeviceMeasurementsStatsModel statsModel = deviceMeasurementsStatsRepository.findByDeviceAndTariffAndHour(device.getId(), device.getTariffsModel().getId(), currentHour);
 
             // No stats row has been found, create a new one
             if (null == statsModel) {
-                final DeviceMeasurementsStatsModel newModel = new DeviceMeasurementsStatsModel();
+                DeviceMeasurementsStatsModel newModel = new DeviceMeasurementsStatsModel();
                 newModel.setAmount(consumed);
                 newModel.setDevice(device);
                 newModel.setTariff(device.getTariffsModel());
@@ -71,5 +72,6 @@ public class DeviceMeasurementsStats {
             statsModel.setAmount(consumed);
             deviceMeasurementsStatsRepository.save(statsModel);
         }
+        log.info("Finished updating the statistics table");
     }
 }
