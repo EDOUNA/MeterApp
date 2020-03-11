@@ -25,4 +25,10 @@ public class DeviceMeasurementsService {
         return deviceMeasurementsModels;
     }
 
+    @Cacheable("findLastMadeMeasurement")
+    public DeviceMeasurementsModel findLastMadeMeasurement(Integer id) {
+        log.info("DeviceMeasurementService: findLastMadeMeasurement");
+        DeviceMeasurementsModel deviceMeasurementsModel = deviceMeasurementsRepository.findLastMadeMeasurement(id);
+        return deviceMeasurementsModel;
+    }
 }

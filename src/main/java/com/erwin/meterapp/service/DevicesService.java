@@ -29,4 +29,10 @@ public class DevicesService {
         List<DevicesModel> devicesModels = devicesRepository.findByActive();
         return devicesModels;
     }
+
+    @Cacheable("findById")
+    public DevicesModel findById(Integer id) {
+        DevicesModel device = devicesRepository.findById(id).orElse(null);
+        return device;
+    }
 }

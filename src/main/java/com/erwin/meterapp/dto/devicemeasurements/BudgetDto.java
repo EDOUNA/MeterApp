@@ -4,19 +4,11 @@ import com.erwin.meterapp.persistence.model.DevicesModel;
 
 public class BudgetDto {
 
-    /**
-     * OLD PHP EXAMPLE DATA
-     * $msg['daysRemaining'] = ($daysInMonth - $currentDay);
-     * $msg['daysPercentage'] = round(100 - ($msg['daysRemaining'] / $daysInMonth) * 100);
-     * $msg['monthlyBudget'] = round($monthlyBudgetConfiguration, 2);
-     * $msg['budgetAllowed'] = round($budgetPerDay, 2);
-     * $msg['budgetSpent'] = 0;
-     * $msg['budgetCurrency'] = null;
-     */
     private int daysRemaining;
     private float daysPercentage;
     private float monthlyBudget;
     private float budgetSpent;
+    private float budgetAllowed;
     private String budgetCurrency;
     private DevicesModel devices;
 
@@ -68,6 +60,14 @@ public class BudgetDto {
         this.devices = devices;
     }
 
+    public float getBudgetAllowed() {
+        return budgetAllowed;
+    }
+
+    public void setBudgetAllowed(float budgetAllowed) {
+        this.budgetAllowed = budgetAllowed;
+    }
+
     @Override
     public String toString() {
         return "BudgetDto{" +
@@ -75,6 +75,7 @@ public class BudgetDto {
                 ", daysPercentage=" + daysPercentage +
                 ", monthlyBudget=" + monthlyBudget +
                 ", budgetSpent=" + budgetSpent +
+                ", budgetAllowed=" + budgetAllowed +
                 ", budgetCurrency='" + budgetCurrency + '\'' +
                 ", devices=" + devices +
                 '}';

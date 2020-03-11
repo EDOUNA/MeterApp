@@ -1,10 +1,12 @@
 package com.erwin.meterapp.controller;
 
 import com.erwin.meterapp.dto.devicemeasurements.BudgetDto;
+import com.erwin.meterapp.persistence.model.ConfigurationsModel;
 import com.erwin.meterapp.persistence.model.DeviceMeasurementsModel;
 import com.erwin.meterapp.persistence.model.DeviceMeasurementsStatsModel;
 import com.erwin.meterapp.persistence.model.DevicesModel;
 import com.erwin.meterapp.persistence.repository.DeviceMeasurementsStatsRepository;
+import com.erwin.meterapp.service.ConfigurationsService;
 import com.erwin.meterapp.service.DeviceMeasurementsService;
 import com.erwin.meterapp.service.DevicesService;
 import org.slf4j.Logger;
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -30,13 +33,16 @@ public class DeviceMeasurementsStats {
     @Autowired
     private DeviceMeasurementsService deviceMeasurementsService;
 
+    @Autowired
+    private ConfigurationsService configurationsService;
+
     @Async
     public void updateStatsTable() {
         log.info("Starting update process");
 
         // Loop through all active devices
         List<DevicesModel> devices = devicesService.findByActive();
-        for (final DevicesModel device : devices) {
+        for (DevicesModel device : devices) {
             // Find all measurements made today
             List<DeviceMeasurementsModel> measurements = deviceMeasurementsService.findByDeviceIdAndCreatedToday(device.getId());
             if (null == measurements) {
@@ -76,11 +82,37 @@ public class DeviceMeasurementsStats {
         log.info("Finished updating the statistics table");
     }
 
-    public BudgetDto getBudget(Enum rangeType) {
+    /**
+     * @param device
+     * @return
+     */
+    public BudgetDto getBudget(DevicesModel device) {
         // First find some active devices to generate a budget
 
         BudgetDto budget = new BudgetDto();
+        List<DevicesModel> devices = devicesService.findByActive();
+        ConfigurationsModel configurationsModel = configurationsService.findBySetting("energy_monthly_budget");
+        float budgetPerMonth = Float.parseFloat(configurationsModel.getParameter());
 
+        // Only for the current day
+        // @TODO make proper functions to support weekly and monthly calls
+        int daysInMonth = LocalDate.now().lengthOfMonth();
+        int currentDay = LocalDate.now().getDayOfMonth();
+        int daysRemaining = (daysInMonth - currentDay);
+        float daysPercentage = Math.round(100 - ((float) daysRemaining / (float) daysInMonth) * 100);
+        float budgetPerDay = (budgetPerMonth / daysInMonth);
+
+        budget.setDaysRemaining(daysRemaining);
+        budget.setDevices(device);
+        budget.setDaysPercentage(daysPercentage);
+        budget.setMonthlyBudget(budgetPerMonth);
+        budget.setBudgetAllowed(budgetPerDay);
+
+        // Basics set, find the last made measurement
+        DeviceMeasurementsModel lastMeasurement = deviceMeasurementsService.findLastMadeMeasurement(device.getId());
+        System.out.println(lastMeasurement.toString());
+
+        System.out.println(budget.toString());
         return budget;
     }
 }

@@ -16,4 +16,7 @@ public interface DeviceMeasurementsRepository extends CrudRepository<DeviceMeasu
 
     @Query("SELECT m FROM DeviceMeasurementsModel m WHERE m.deviceId = ?1 AND DATE(m.createdAt) = CURRENT_DATE AND HOUR(m.createdAt) = HOUR(CURRENT_DATE)")
     DeviceMeasurementsModel findByCreatedTodayAndCurrentHour(Integer id);
+
+    @Query("SELECT m FROM DeviceMeasurementsModel m WHERE m.deviceId = ?1 ORDER BY m.createdAt DESC")
+    DeviceMeasurementsModel findLastMadeMeasurement(Integer id);
 }
