@@ -2,7 +2,9 @@ package com.erwin.meterapp.persistence.repository;
 
 import com.erwin.meterapp.persistence.model.ConfigurationsModel;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface ConfigurationsRepository extends CrudRepository<ConfigurationsModel, Long> {
     ConfigurationsModel findByid(long id);
 

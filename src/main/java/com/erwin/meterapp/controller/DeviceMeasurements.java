@@ -1,6 +1,6 @@
 package com.erwin.meterapp.controller;
 
-import com.erwin.meterapp.dao.domoticz.Result;
+import com.erwin.meterapp.dto.domoticz.Result;
 import com.erwin.meterapp.persistence.model.DeviceMeasurementsModel;
 import com.erwin.meterapp.persistence.model.DeviceTariffsModel;
 import com.erwin.meterapp.persistence.model.DevicesModel;

@@ -1,4 +1,4 @@
-package com.erwin.meterapp.dao.domoticz;
+package com.erwin.meterapp.dto.domoticz;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

@@ -1,11 +1,12 @@
 package com.erwin.meterapp.controller;
 
+import com.erwin.meterapp.dto.devicemeasurements.BudgetDto;
 import com.erwin.meterapp.persistence.model.DeviceMeasurementsModel;
 import com.erwin.meterapp.persistence.model.DeviceMeasurementsStatsModel;
 import com.erwin.meterapp.persistence.model.DevicesModel;
-import com.erwin.meterapp.persistence.repository.DeviceMeasurementsRepository;
 import com.erwin.meterapp.persistence.repository.DeviceMeasurementsStatsRepository;
-import com.erwin.meterapp.persistence.repository.DevicesRepository;
+import com.erwin.meterapp.service.DeviceMeasurementsService;
+import com.erwin.meterapp.service.DevicesService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,23 +22,23 @@ public class DeviceMeasurementsStats {
     private static final Logger log = LoggerFactory.getLogger(DeviceMeasurementsStats.class);
 
     @Autowired
-    private DeviceMeasurementsRepository deviceMeasurementsRepository;
-
-    @Autowired
-    private DevicesRepository devicesRepository;
+    private DevicesService devicesService;
 
     @Autowired
     private DeviceMeasurementsStatsRepository deviceMeasurementsStatsRepository;
+
+    @Autowired
+    private DeviceMeasurementsService deviceMeasurementsService;
 
     @Async
     public void updateStatsTable() {
         log.info("Starting update process");
 
         // Loop through all active devices
-        List<DevicesModel> devices = devicesRepository.findByActive();
+        List<DevicesModel> devices = devicesService.findByActive();
         for (final DevicesModel device : devices) {
             // Find all measurements made today
-            List<DeviceMeasurementsModel> measurements = deviceMeasurementsRepository.findByDeviceIdAndCreatedToday(device.getId());
+            List<DeviceMeasurementsModel> measurements = deviceMeasurementsService.findByDeviceIdAndCreatedToday(device.getId());
             if (null == measurements) {
                 log.warn("No measurements (yet) found. Whilst this is odd, let's retry in the next batch.");
                 return;
@@ -64,7 +65,7 @@ public class DeviceMeasurementsStats {
                 // All set, save the record
                 deviceMeasurementsStatsRepository.save(newModel);
 
-                // Since we are done here, continue the loop for other devices
+                // Since we are done here, continue the loop - no update is needed
                 continue;
             }
 
@@ -73,5 +74,13 @@ public class DeviceMeasurementsStats {
             deviceMeasurementsStatsRepository.save(statsModel);
         }
         log.info("Finished updating the statistics table");
+    }
+
+    public BudgetDto getBudget(Enum rangeType) {
+        // First find some active devices to generate a budget
+
+        BudgetDto budget = new BudgetDto();
+
+        return budget;
     }
 }

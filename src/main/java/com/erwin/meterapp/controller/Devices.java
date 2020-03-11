@@ -1,7 +1,7 @@
 package com.erwin.meterapp.controller;
 
-import com.erwin.meterapp.dao.domoticz.Main;
-import com.erwin.meterapp.dao.domoticz.Result;
+import com.erwin.meterapp.dto.domoticz.Main;
+import com.erwin.meterapp.dto.domoticz.Result;
 import com.erwin.meterapp.persistence.model.ConfigurationsModel;
 import com.erwin.meterapp.persistence.model.DevicesModel;
 import com.erwin.meterapp.persistence.repository.ConfigurationsRepository;

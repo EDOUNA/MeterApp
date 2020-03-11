@@ -3,11 +3,11 @@ package com.erwin.meterapp.persistence.repository;
 import com.erwin.meterapp.persistence.model.DeviceMeasurementsModel;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Service
+@Repository
 public interface DeviceMeasurementsRepository extends CrudRepository<DeviceMeasurementsModel, Integer> {
     List<DeviceMeasurementsModel> findAll();
 
