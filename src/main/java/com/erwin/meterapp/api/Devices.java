@@ -64,7 +64,7 @@ public class Devices {
             log.info("Done processing for device " + device.getDescritpion());
         }
 
-        log.info("Done processing all measurements. Triggering update stats table");
+        log.info("Done processing all measurements. Triggering update stats table, asyncronously");
         deviceMeasurementsStats.updateStatsTable();
         log.info("Done updating stats table");
     }
