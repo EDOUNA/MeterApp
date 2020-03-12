@@ -27,9 +27,9 @@ public class api {
 
     @GetMapping("getCurrentConsumption/deviceId/{deviceId}")
     public ResponseEntity<?> getCurrentConsumption(@PathVariable Integer deviceId) {
-        log.info("Request param:" + deviceId);
         DevicesModel device = devicesService.findById(deviceId);
         if (null == device) {
+            log.info("Trying to get curren consumption, whilst no device with ID " + deviceId + " is found");
             return new ResponseEntity<String>("No device found with device ID " + deviceId, HttpStatus.NOT_FOUND);
         }
 
