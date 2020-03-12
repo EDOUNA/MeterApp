@@ -58,14 +58,14 @@ public class DeviceMeasurementsStats {
 
             // Now try to see if this record is already present in the stats table
             Integer currentHour = LocalTime.now().getHour();
-            DeviceMeasurementsStatsModel statsModel = deviceMeasurementsStatsRepository.findByDeviceAndTariffAndHour(device.getId(), device.getTariffsModel().getId(), currentHour);
+            DeviceMeasurementsStatsModel statsModel = deviceMeasurementsStatsRepository.findByDeviceAndTariffAndHour(device.getId(), device.getTariff().getId(), currentHour);
 
             // No stats row has been found, create a new one
             if (null == statsModel) {
                 DeviceMeasurementsStatsModel newModel = new DeviceMeasurementsStatsModel();
                 newModel.setAmount(consumed);
                 newModel.setDevice(device);
-                newModel.setTariff(device.getTariffsModel());
+                newModel.setTariff(device.getTariff());
                 newModel.setHour(currentHour);
 
                 // All set, save the record
@@ -83,12 +83,11 @@ public class DeviceMeasurementsStats {
     }
 
     /**
+     * @TODO: make it device independent. It needs to render the daily/weekly/monthly consumption. It's hard to tell how much per device allocates to the MonthlyBudget
      * @param device
      * @return
      */
     public BudgetDto getBudget(DevicesModel device) {
-        // First find some active devices to generate a budget
-
         BudgetDto budget = new BudgetDto();
         ConfigurationsModel configurationsModel = configurationsService.findBySetting("energy_monthly_budget");
         System.out.println(configurationsModel);
@@ -101,7 +100,7 @@ public class DeviceMeasurementsStats {
         int daysRemaining = (daysInMonth - currentDay);
         float daysPercentage = Math.round(100 - ((float) daysRemaining / (float) daysInMonth) * 100);
         float budgetPerDay = (budgetPerMonth / daysInMonth);
-        String budgetCurrency = device.getTariffsModel().getCurrency().getSymbol();
+        String budgetCurrency = device.getTariff().getCurrency().getSymbol();
 
         budget.setDaysRemaining(daysRemaining);
         budget.setDaysPercentage(daysPercentage);
@@ -110,7 +109,13 @@ public class DeviceMeasurementsStats {
         budget.setBudgetCurrency(budgetCurrency);
 
         // @TODO: maybe add some proper device mapping too. No need to display the entire Device DTO
-        budget.setDevice(device);
+        DevicesModel budgetDevice = new DevicesModel();
+        budgetDevice.setDescritpion(device.getDescritpion());
+        budgetDevice.setId(device.getId());
+        budgetDevice.setIdentifier(device.getIdentifier());
+        //budgetDevice.
+
+        budget.setDevice(budgetDevice);
 
         // Basics set, find the last made measurement
         //DeviceMeasurementsModel lastMeasurement = deviceMeasurementsService.findLastMadeMeasurement(device.getId());

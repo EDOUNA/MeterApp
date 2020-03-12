@@ -23,7 +23,7 @@ public class DevicesModel {
     private Timestamp updatedAt;
 
     @Column(name = "description")
-    private String descritpion;
+    private String description;
 
     @Column(name = "identifier")
     private int identifier;
@@ -33,7 +33,7 @@ public class DevicesModel {
 
     @OneToOne
     @JoinColumn(name = "tariff_id", referencedColumnName = "id")
-    private DeviceTariffsModel tariffsModel;
+    private DeviceTariffsModel tariff;
 
     @Column(name = "active")
     private int active;
@@ -63,11 +63,11 @@ public class DevicesModel {
     }
 
     public String getDescritpion() {
-        return descritpion;
+        return description;
     }
 
     public void setDescritpion(String descritpion) {
-        this.descritpion = descritpion;
+        this.description = descritpion;
     }
 
     public int getIdentifier() {
@@ -86,12 +86,12 @@ public class DevicesModel {
         this.deviceTypeId = deviceTypeId;
     }
 
-    public DeviceTariffsModel getTariffsModel() {
-        return tariffsModel;
+    public DeviceTariffsModel getTariff() {
+        return tariff;
     }
 
-    public void setTariffsModel(DeviceTariffsModel tariffsModel) {
-        this.tariffsModel = tariffsModel;
+    public void setTariffsModel(DeviceTariffsModel tariffs) {
+        this.tariff = tariffs;
     }
 
     public int getActive() {
@@ -108,10 +108,10 @@ public class DevicesModel {
                 "id=" + id +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
-                ", descritpion='" + descritpion + '\'' +
+                ", description='" + description + '\'' +
                 ", identifier=" + identifier +
                 ", deviceTypeId=" + deviceTypeId +
-                ", tariffsModel=" + tariffsModel +
+                ", tariff=" + tariff +
                 ", active=" + active +
                 '}';
     }

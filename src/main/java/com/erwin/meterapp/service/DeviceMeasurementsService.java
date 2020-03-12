@@ -1,6 +1,5 @@
 package com.erwin.meterapp.service;
 
-import com.erwin.meterapp.controller.DeviceMeasurementsStats;
 import com.erwin.meterapp.persistence.model.DeviceMeasurementsModel;
 import com.erwin.meterapp.persistence.repository.DeviceMeasurementsRepository;
 import org.slf4j.Logger;

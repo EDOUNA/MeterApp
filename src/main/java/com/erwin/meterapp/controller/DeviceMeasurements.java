@@ -65,7 +65,7 @@ public class DeviceMeasurements {
         DeviceTariffsModel deviceTariffsModel = null;
 
         try {
-            deviceTariffsModel = deviceTariffRepository.findActiveTariffByDeviceId(device.getTariffsModel().getId());
+            deviceTariffsModel = deviceTariffRepository.findActiveTariffByDeviceId(device.getTariff().getId());
         } catch (Exception e) {
             log.error("Unable to perform device tariff query. Stacktrace: " + e.getStackTrace());
         }
