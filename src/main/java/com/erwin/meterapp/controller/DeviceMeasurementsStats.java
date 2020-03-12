@@ -90,7 +90,6 @@ public class DeviceMeasurementsStats {
         // First find some active devices to generate a budget
 
         BudgetDto budget = new BudgetDto();
-        List<DevicesModel> devices = devicesService.findByActive();
         ConfigurationsModel configurationsModel = configurationsService.findBySetting("energy_monthly_budget");
         float budgetPerMonth = Float.parseFloat(configurationsModel.getParameter());
 
