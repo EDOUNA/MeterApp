@@ -13,7 +13,7 @@ import java.util.List;
 
 @Service
 public class DeviceMeasurementsService {
-    private static final Logger log = LoggerFactory.getLogger(DeviceMeasurementsStats.class);
+    private static final Logger log = LoggerFactory.getLogger(DeviceMeasurementsService.class);
 
     @Autowired
     DeviceMeasurementsRepository deviceMeasurementsRepository;

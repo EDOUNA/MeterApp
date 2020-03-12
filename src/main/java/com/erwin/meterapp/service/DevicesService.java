@@ -1,6 +1,5 @@
 package com.erwin.meterapp.service;
 
-import com.erwin.meterapp.controller.DeviceMeasurementsStats;
 import com.erwin.meterapp.persistence.model.DevicesModel;
 import com.erwin.meterapp.persistence.repository.DevicesRepository;
 import org.slf4j.Logger;
@@ -13,7 +12,7 @@ import java.util.List;
 
 @Service
 public class DevicesService {
-    private static final Logger log = LoggerFactory.getLogger(DeviceMeasurementsStats.class);
+    private static final Logger log = LoggerFactory.getLogger(DevicesService.class);
 
     @Autowired
     private DevicesRepository devicesRepository;
