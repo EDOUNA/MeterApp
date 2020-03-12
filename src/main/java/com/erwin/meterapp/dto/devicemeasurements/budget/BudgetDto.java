@@ -1,6 +1,4 @@
-package com.erwin.meterapp.dto.devicemeasurements;
-
-import com.erwin.meterapp.persistence.model.DevicesModel;
+package com.erwin.meterapp.dto.devicemeasurements.budget;
 
 public class BudgetDto {
 
@@ -11,7 +9,6 @@ public class BudgetDto {
     private float budgetAllowed;
     private String budgetCurrency;
     private float deviceTariff;
-    private DevicesModel device;
 
     public int getDaysRemaining() {
         return daysRemaining;
@@ -53,14 +50,6 @@ public class BudgetDto {
         this.budgetCurrency = budgetCurrency;
     }
 
-    public DevicesModel getDevice() {
-        return device;
-    }
-
-    public void setDevice(DevicesModel device) {
-        this.device = device;
-    }
-
     public float getBudgetAllowed() {
         return budgetAllowed;
     }
@@ -86,7 +75,6 @@ public class BudgetDto {
                 ", budgetSpent=" + budgetSpent +
                 ", budgetAllowed=" + budgetAllowed +
                 ", budgetCurrency='" + budgetCurrency + '\'' +
-                ", device=" + device +
                 ", deviceTariff=" + deviceTariff +
                 '}';
     }

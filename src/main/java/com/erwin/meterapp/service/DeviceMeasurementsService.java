@@ -20,14 +20,14 @@ public class DeviceMeasurementsService {
     @Cacheable("findByDeviceIdAndCreatedToday")
     public List<DeviceMeasurementsModel> findByDeviceIdAndCreatedToday(Integer id) {
         log.info("DeviceMeasurementService: findByDeviceIdAndCreatedToday");
-        List<DeviceMeasurementsModel> deviceMeasurementsModels = deviceMeasurementsRepository.findByDeviceIdAndCreatedToday(id);
+        List<DeviceMeasurementsModel> deviceMeasurementsModels = deviceMeasurementsRepository.findByDeviceAndCreatedToday(id);
         return deviceMeasurementsModels;
     }
 
     @Cacheable("findLastMadeMeasurement")
     public DeviceMeasurementsModel findLastMadeMeasurement(Integer id) {
         log.info("DeviceMeasurementService: findLastMadeMeasurement");
-        DeviceMeasurementsModel deviceMeasurementsModel = deviceMeasurementsRepository.findLastMadeMeasurement(id);
+        DeviceMeasurementsModel deviceMeasurementsModel = deviceMeasurementsRepository.findByOnByLastMadeMeasurement(id);
         return deviceMeasurementsModel;
     }
 }

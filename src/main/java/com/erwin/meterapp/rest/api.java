@@ -1,16 +1,13 @@
 package com.erwin.meterapp.rest;
 
 import com.erwin.meterapp.controller.DeviceMeasurementsStats;
-import com.erwin.meterapp.dto.devicemeasurements.BudgetDto;
-import com.erwin.meterapp.persistence.model.DevicesModel;
-import com.erwin.meterapp.service.DevicesService;
+import com.erwin.meterapp.dto.devicemeasurements.budget.BudgetDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,19 +19,10 @@ public class api {
     @Autowired
     private DeviceMeasurementsStats deviceMeasurementsStats;
 
-    @Autowired
-    private DevicesService devicesService;
+    @GetMapping("getCurrentConsumption")
+    public ResponseEntity<?> getCurrentConsumption() {
+        BudgetDto budget = deviceMeasurementsStats.getBudget();
 
-    @GetMapping("getCurrentConsumption/deviceId/{deviceId}")
-    public ResponseEntity<?> getCurrentConsumption(@PathVariable Integer deviceId) {
-        DevicesModel device = devicesService.findById(deviceId);
-        if (null == device) {
-            log.info("Trying to get curren consumption, whilst no device with ID " + deviceId + " is found");
-            return new ResponseEntity<String>("No device found with device ID " + deviceId, HttpStatus.NOT_FOUND);
-        }
-
-        BudgetDto budget = deviceMeasurementsStats.getBudget(device);
-
-        return new ResponseEntity<BudgetDto>(budget, HttpStatus.OK);
+        return new ResponseEntity<>(budget, HttpStatus.OK);
     }
 }

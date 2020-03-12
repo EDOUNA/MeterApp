@@ -22,12 +22,13 @@ public class DeviceMeasurementsModel {
     @UpdateTimestamp
     private Timestamp updatedAt;
 
-    @Column(name = "device_id")
-    private int deviceId;
+    @OneToOne
+    @JoinColumn(name = "device_id", referencedColumnName = "id")
+    private DevicesModel device;
 
     @OneToOne()
     @JoinColumn(name = "tariff_id", referencedColumnName = "id")
-    private DeviceTariffsModel deviceTariffs;
+    private DeviceTariffsModel tariff;
 
     @Column(name = "amount")
     private float amount;
@@ -56,20 +57,20 @@ public class DeviceMeasurementsModel {
         this.updatedAt = updatedAt;
     }
 
-    public int getDeviceId() {
-        return deviceId;
+    public DevicesModel getDevice() {
+        return device;
     }
 
-    public void setDeviceId(int deviceId) {
-        this.deviceId = deviceId;
+    public void setDevice(DevicesModel device) {
+        this.device = device;
     }
 
-    public DeviceTariffsModel getDeviceTariffs() {
-        return deviceTariffs;
+    public DeviceTariffsModel getTariff() {
+        return tariff;
     }
 
-    public void setDeviceTariffs(DeviceTariffsModel deviceTariffs) {
-        this.deviceTariffs = deviceTariffs;
+    public void setDeviceTariffs(DeviceTariffsModel tariff) {
+        this.tariff = tariff;
     }
 
     public float getAmount() {
@@ -86,8 +87,8 @@ public class DeviceMeasurementsModel {
                 "id=" + id +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
-                ", deviceId=" + deviceId +
-                ", deviceTariffs=" + deviceTariffs +
+                ", device=" + device +
+                ", tariff=" + tariff +
                 ", amount=" + amount +
                 '}';
     }

@@ -1,6 +1,6 @@
 package com.erwin.meterapp.controller;
 
-import com.erwin.meterapp.dto.devicemeasurements.BudgetDto;
+import com.erwin.meterapp.dto.devicemeasurements.budget.BudgetDto;
 import com.erwin.meterapp.persistence.model.ConfigurationsModel;
 import com.erwin.meterapp.persistence.model.DeviceMeasurementsModel;
 import com.erwin.meterapp.persistence.model.DeviceMeasurementsStatsModel;
@@ -82,25 +82,27 @@ public class DeviceMeasurementsStats {
         log.info("Finished updating the statistics table");
     }
 
-    /**
-     * @TODO: make it device independent. It needs to render the daily/weekly/monthly consumption. It's hard to tell how much per device allocates to the MonthlyBudget
-     * @param device
-     * @return
-     */
-    public BudgetDto getBudget(DevicesModel device) {
+    public BudgetDto getBudget() {
         BudgetDto budget = new BudgetDto();
-        ConfigurationsModel configurationsModel = configurationsService.findBySetting("energy_monthly_budget");
-        System.out.println(configurationsModel);
-        float budgetPerMonth = Float.parseFloat(configurationsModel.getParameter());
 
-        // Only for the current day
-        // @TODO make proper functions to support weekly and monthly calls
+        ConfigurationsModel configurationsModel = configurationsService.findBySetting("energy_monthly_budget");
+        List<DevicesModel> devices = devicesService.findByActive();
+
+        float budgetPerMonth = Float.parseFloat(configurationsModel.getParameter());
         int daysInMonth = LocalDate.now().lengthOfMonth();
         int currentDay = LocalDate.now().getDayOfMonth();
         int daysRemaining = (daysInMonth - currentDay);
         float daysPercentage = Math.round(100 - ((float) daysRemaining / (float) daysInMonth) * 100);
         float budgetPerDay = (budgetPerMonth / daysInMonth);
-        String budgetCurrency = device.getTariff().getCurrency().getSymbol();
+        float budgetSpent = 0;
+        String budgetCurrency = null;
+
+        // Only for the current day
+        // @TODO make proper functions to support weekly and monthly calls
+        for (DevicesModel device : devices) {
+            DeviceMeasurementsModel deviceMeasurement = deviceMeasurementsService.findLastMadeMeasurement(device.getId());
+            System.out.println(deviceMeasurement.toString());
+        }
 
         budget.setDaysRemaining(daysRemaining);
         budget.setDaysPercentage(daysPercentage);
@@ -109,12 +111,7 @@ public class DeviceMeasurementsStats {
         budget.setBudgetCurrency(budgetCurrency);
 
         // @TODO: maybe add some proper device mapping too. No need to display the entire Device DTO
-        DevicesModel budgetDevice = new DevicesModel();
-        budgetDevice.setDescritpion(device.getDescritpion());
-        budgetDevice.setId(device.getId());
-        budgetDevice.setIdentifier(device.getIdentifier());
 
-        budget.setDevice(budgetDevice);
 
         // Basics set, find the last made measurement
         //DeviceMeasurementsModel lastMeasurement = deviceMeasurementsService.findLastMadeMeasurement(device.getId());

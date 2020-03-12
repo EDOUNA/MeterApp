@@ -41,7 +41,7 @@ public class DeviceMeasurements {
         try {
             // Insert a new record
             DeviceMeasurementsModel measurementsModel = new DeviceMeasurementsModel();
-            measurementsModel.setDeviceId((int) device.getId());
+            measurementsModel.setDevice(device);
             measurementsModel.setAmount(Float.parseFloat(counterValue[0]));
 
             // Find and set the active device tariff
