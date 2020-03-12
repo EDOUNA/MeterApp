@@ -99,6 +99,7 @@ public class DeviceMeasurementsStats {
 
         // Only for the current day
         // @TODO make proper functions to support weekly and monthly calls
+
         for (DevicesModel device : devices) {
             DeviceMeasurementsModel deviceMeasurement = deviceMeasurementsService.findLastMadeMeasurement(device.getId());
             System.out.println(deviceMeasurement.toString());
