@@ -113,7 +113,6 @@ public class DeviceMeasurementsStats {
         budgetDevice.setDescritpion(device.getDescritpion());
         budgetDevice.setId(device.getId());
         budgetDevice.setIdentifier(device.getIdentifier());
-        //budgetDevice.
 
         budget.setDevice(budgetDevice);
 

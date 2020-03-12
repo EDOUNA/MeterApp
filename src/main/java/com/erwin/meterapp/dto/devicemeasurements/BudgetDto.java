@@ -10,6 +10,7 @@ public class BudgetDto {
     private float budgetSpent;
     private float budgetAllowed;
     private String budgetCurrency;
+    private float deviceTariff;
     private DevicesModel device;
 
     public int getDaysRemaining() {
@@ -68,6 +69,14 @@ public class BudgetDto {
         this.budgetAllowed = budgetAllowed;
     }
 
+    public float getDeviceTariff() {
+        return deviceTariff;
+    }
+
+    public void setDeviceTariff(float deviceTariff) {
+        this.deviceTariff = deviceTariff;
+    }
+
     @Override
     public String toString() {
         return "BudgetDto{" +
@@ -78,6 +87,7 @@ public class BudgetDto {
                 ", budgetAllowed=" + budgetAllowed +
                 ", budgetCurrency='" + budgetCurrency + '\'' +
                 ", device=" + device +
+                ", deviceTariff=" + deviceTariff +
                 '}';
     }
 }
