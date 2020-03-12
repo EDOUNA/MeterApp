@@ -91,6 +91,7 @@ public class DeviceMeasurementsStats {
 
         BudgetDto budget = new BudgetDto();
         ConfigurationsModel configurationsModel = configurationsService.findBySetting("energy_monthly_budget");
+        System.out.println(configurationsModel);
         float budgetPerMonth = Float.parseFloat(configurationsModel.getParameter());
 
         // Only for the current day
@@ -108,8 +109,8 @@ public class DeviceMeasurementsStats {
         budget.setBudgetAllowed(budgetPerDay);
 
         // Basics set, find the last made measurement
-        DeviceMeasurementsModel lastMeasurement = deviceMeasurementsService.findLastMadeMeasurement(device.getId());
-        System.out.println(lastMeasurement.toString());
+        //DeviceMeasurementsModel lastMeasurement = deviceMeasurementsService.findLastMadeMeasurement(device.getId());
+        //System.out.println(lastMeasurement.toString());
 
         System.out.println(budget.toString());
         return budget;

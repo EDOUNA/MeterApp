@@ -35,6 +35,6 @@ public class api {
 
         BudgetDto budget = deviceMeasurementsStats.getBudget(device);
 
-        return new ResponseEntity<String>("HERE", HttpStatus.OK);
+        return new ResponseEntity<BudgetDto>(budget, HttpStatus.OK);
     }
 }
