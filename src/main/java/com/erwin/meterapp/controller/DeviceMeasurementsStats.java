@@ -1,6 +1,7 @@
 package com.erwin.meterapp.controller;
 
 import com.erwin.meterapp.dto.devicemeasurements.budget.BudgetDto;
+import com.erwin.meterapp.dto.devicemeasurements.budget.DevicesDto;
 import com.erwin.meterapp.persistence.model.ConfigurationsModel;
 import com.erwin.meterapp.persistence.model.DeviceMeasurementsModel;
 import com.erwin.meterapp.persistence.model.DeviceMeasurementsStatsModel;
@@ -8,6 +9,7 @@ import com.erwin.meterapp.persistence.model.DevicesModel;
 import com.erwin.meterapp.persistence.repository.DeviceMeasurementsStatsRepository;
 import com.erwin.meterapp.service.ConfigurationsService;
 import com.erwin.meterapp.service.DeviceMeasurementsService;
+import com.erwin.meterapp.service.DeviceMeasurementsStatsService;
 import com.erwin.meterapp.service.DevicesService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Controller;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -35,6 +38,9 @@ public class DeviceMeasurementsStats {
 
     @Autowired
     private ConfigurationsService configurationsService;
+
+    @Autowired
+    private DeviceMeasurementsStatsService deviceMeasurementsStatsService;
 
     @Async
     public void updateStatsTable() {
@@ -94,31 +100,43 @@ public class DeviceMeasurementsStats {
         int daysRemaining = (daysInMonth - currentDay);
         float daysPercentage = Math.round(100 - ((float) daysRemaining / (float) daysInMonth) * 100);
         float budgetPerDay = (budgetPerMonth / daysInMonth);
-        float budgetSpent = 0;
+
         String budgetCurrency = null;
 
         // Only for the current day
         // @TODO make proper functions to support weekly and monthly calls
-
+        List<DevicesDto> devicesDtos = new ArrayList<DevicesDto>();
+        float totalBudgetSpent = 0;
         for (DevicesModel device : devices) {
-            DeviceMeasurementsModel deviceMeasurement = deviceMeasurementsService.findLastMadeMeasurement(device.getId());
-            System.out.println(deviceMeasurement.toString());
+            float budgetSpent;
+
+            // Fetch the latest known record from the stats table
+            DeviceMeasurementsStatsModel deviceMeasurement = deviceMeasurementsStatsService.getStats(device, LocalTime.now().getHour());
+            budgetSpent = (deviceMeasurement.getAmount() * deviceMeasurement.getTariff().getAmount());
+            totalBudgetSpent += budgetSpent;
+
+            log.info("Currently spent for " + device.getDescritpion() + ": " + budgetSpent);
+
+            // Create a DevicesDto object
+            DevicesDto devicesDto = new DevicesDto();
+            devicesDto.setBudgetSpent(budgetSpent);
+            devicesDto.setDescription(device.getDescritpion());
+            devicesDto.setEnergySpent(deviceMeasurement.getAmount());
+            devicesDto.setCurrencySymbol(device.getTariff().getCurrency().getSymbol());
+
+            System.out.println(devicesDto.toString());
+
+            devicesDtos.add(devicesDto);
         }
 
+        // Set it to the budget structure
+        budget.setDevices(devicesDtos);
         budget.setDaysRemaining(daysRemaining);
         budget.setDaysPercentage(daysPercentage);
         budget.setMonthlyBudget(budgetPerMonth);
         budget.setBudgetAllowed(budgetPerDay);
-        budget.setBudgetCurrency(budgetCurrency);
+        budget.setTotalBudgetSpent(totalBudgetSpent);
 
-        // @TODO: maybe add some proper device mapping too. No need to display the entire Device DTO
-
-
-        // Basics set, find the last made measurement
-        //DeviceMeasurementsModel lastMeasurement = deviceMeasurementsService.findLastMadeMeasurement(device.getId());
-        //System.out.println(lastMeasurement.toString());
-
-        //System.out.println(budget.toString());
         return budget;
     }
 }

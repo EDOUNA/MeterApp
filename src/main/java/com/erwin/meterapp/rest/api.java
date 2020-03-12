@@ -22,7 +22,6 @@ public class api {
     @GetMapping("getCurrentConsumption")
     public ResponseEntity<?> getCurrentConsumption() {
         BudgetDto budget = deviceMeasurementsStats.getBudget();
-
         return new ResponseEntity<>(budget, HttpStatus.OK);
     }
 }

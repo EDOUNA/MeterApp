@@ -1,14 +1,15 @@
 package com.erwin.meterapp.dto.devicemeasurements.budget;
 
+import java.util.List;
+
 public class BudgetDto {
 
     private int daysRemaining;
     private float daysPercentage;
     private float monthlyBudget;
-    private float budgetSpent;
+    private float totalBudgetSpent;
     private float budgetAllowed;
-    private String budgetCurrency;
-    private float deviceTariff;
+    private List<DevicesDto> devices;
 
     public int getDaysRemaining() {
         return daysRemaining;
@@ -34,20 +35,12 @@ public class BudgetDto {
         this.monthlyBudget = monthlyBudget;
     }
 
-    public float getBudgetSpent() {
-        return budgetSpent;
+    public float getTotalBudgetSpent() {
+        return totalBudgetSpent;
     }
 
-    public void setBudgetSpent(float budgetSpent) {
-        this.budgetSpent = budgetSpent;
-    }
-
-    public String getBudgetCurrency() {
-        return budgetCurrency;
-    }
-
-    public void setBudgetCurrency(String budgetCurrency) {
-        this.budgetCurrency = budgetCurrency;
+    public void setTotalBudgetSpent(float totalBudgetSpent) {
+        this.totalBudgetSpent = totalBudgetSpent;
     }
 
     public float getBudgetAllowed() {
@@ -58,12 +51,12 @@ public class BudgetDto {
         this.budgetAllowed = budgetAllowed;
     }
 
-    public float getDeviceTariff() {
-        return deviceTariff;
+    public List<DevicesDto> getDevices() {
+        return devices;
     }
 
-    public void setDeviceTariff(float deviceTariff) {
-        this.deviceTariff = deviceTariff;
+    public void setDevices(List<DevicesDto> devices) {
+        this.devices = devices;
     }
 
     @Override
@@ -72,10 +65,9 @@ public class BudgetDto {
                 "daysRemaining=" + daysRemaining +
                 ", daysPercentage=" + daysPercentage +
                 ", monthlyBudget=" + monthlyBudget +
-                ", budgetSpent=" + budgetSpent +
+                ", totalBudgetSpent=" + totalBudgetSpent +
                 ", budgetAllowed=" + budgetAllowed +
-                ", budgetCurrency='" + budgetCurrency + '\'' +
-                ", deviceTariff=" + deviceTariff +
+                ", devices=" + devices +
                 '}';
     }
 }
