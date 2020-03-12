@@ -10,7 +10,7 @@ public class BudgetDto {
     private float budgetSpent;
     private float budgetAllowed;
     private String budgetCurrency;
-    private DevicesModel devices;
+    private DevicesModel device;
 
     public int getDaysRemaining() {
         return daysRemaining;
@@ -52,12 +52,12 @@ public class BudgetDto {
         this.budgetCurrency = budgetCurrency;
     }
 
-    public DevicesModel getDevices() {
-        return devices;
+    public DevicesModel getDevice() {
+        return device;
     }
 
-    public void setDevices(DevicesModel devices) {
-        this.devices = devices;
+    public void setDevice(DevicesModel device) {
+        this.device = device;
     }
 
     public float getBudgetAllowed() {
@@ -77,7 +77,7 @@ public class BudgetDto {
                 ", budgetSpent=" + budgetSpent +
                 ", budgetAllowed=" + budgetAllowed +
                 ", budgetCurrency='" + budgetCurrency + '\'' +
-                ", devices=" + devices +
+                ", device=" + device +
                 '}';
     }
 }

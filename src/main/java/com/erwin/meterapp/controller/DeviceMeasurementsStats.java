@@ -101,18 +101,22 @@ public class DeviceMeasurementsStats {
         int daysRemaining = (daysInMonth - currentDay);
         float daysPercentage = Math.round(100 - ((float) daysRemaining / (float) daysInMonth) * 100);
         float budgetPerDay = (budgetPerMonth / daysInMonth);
+        String budgetCurrency = device.getTariffsModel().getCurrency().getSymbol();
 
         budget.setDaysRemaining(daysRemaining);
-        budget.setDevices(device);
         budget.setDaysPercentage(daysPercentage);
         budget.setMonthlyBudget(budgetPerMonth);
         budget.setBudgetAllowed(budgetPerDay);
+        budget.setBudgetCurrency(budgetCurrency);
+
+        // @TODO: maybe add some proper device mapping too. No need to display the entire Device DTO
+        budget.setDevice(device);
 
         // Basics set, find the last made measurement
         //DeviceMeasurementsModel lastMeasurement = deviceMeasurementsService.findLastMadeMeasurement(device.getId());
         //System.out.println(lastMeasurement.toString());
 
-        System.out.println(budget.toString());
+        //System.out.println(budget.toString());
         return budget;
     }
 }
